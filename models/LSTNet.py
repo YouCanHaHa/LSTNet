@@ -88,7 +88,11 @@ class Model(nn.Module):
         res = self.linear1(r);
         
         #highway
-        ###
+        '''
+        Here, use x[j][T-hw],..., x[j][T] to approximate x[j][T+output_horizon]
+            where j is the index of input_size
+        Therefore, the highway component is used as a univariate AR model
+        '''
         if (self.hw > 0):
             z = x[:, -self.hw:, :];
             ### z.size: [BS, input_size, hw(highway_window_size)] --> (BS*input_size, highway_window_size)
